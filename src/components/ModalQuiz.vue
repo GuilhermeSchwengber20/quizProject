@@ -5,16 +5,8 @@
         <h1> Quiz App</h1>
         <label @click="fecharModal"><i class="fa-solid fa-xmark close"></i></label>
       </div>  
-      <div class="main-quiz" v-for="(element, index) in this.$store.state.quizHTML" :key="index" v-show="quiz">
-        <div class="box-questions">
-          <h2>Question {{b}}/{{questions.length}}</h2>
-          <label>{{element.question}}</label>
-        </div>
-        <div class="box-suggestions">
-            <ul>
-              <li v-for="(item, index) in element.suggestions" :key="index" :class="select ? check(item) : ''" @click="selectResponse(item)">{{item.suggestion}}</li>
-            </ul>
-        </div>
+      <div class="quiz-main" v-for="(element, index) in listaQuizHTML" :key="index">
+          <li>{{element.sugestion}}</li>  
       </div>
       <div class="box-score" v-if="score_show">
         <h2>Sua pontuação é</h2>
@@ -26,7 +18,7 @@
       <div class="quiz-footer">
         <div class="box-button">
           <button @click="skipQuestion">Skip</button>
-          <button @click="nextQuestion">Next</button>
+          <button @click="verVetor">Next</button>
 
         </div>
       </div>
@@ -85,8 +77,7 @@ export default {
           ]
         },
       ],
-      a:0,
-      b:1,
+
       select: false,
       score: 0,
       quiz: true,
@@ -99,6 +90,7 @@ export default {
     }
   },
   methods:{
+
 
     selectResponse(e){
       this.select = true;

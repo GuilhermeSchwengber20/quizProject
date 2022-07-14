@@ -14,34 +14,31 @@
       </div>
     </div>
     <div class="quiz-lista">
-      <div class="box-quiz">
-        <label>HTML 0/10</label>
+      <div class="box-quiz" v-for="(element, index) in quizItens" :key="index">
+        <label>{{element.title}}</label>
         &nbsp;
-        <label @click="abrirQuiz">Ir Para o Quiz<i class="fa-solid fa-arrow-right"></i></label>
-      </div>
-      <div class="box-quiz">
-        <label>CSS 0/10</label>
-        &nbsp;
-        <label>Ir Para o Quiz<i class="fa-solid fa-arrow-right"></i></label>
-      </div>
-      <div class="box-quiz">
-        <label>JavaScript 0/10</label>
-        &nbsp;
-        <button @click="abrirQuiz">r Para o Quiz<i class="fa-solid fa-arrow-right"></i></button>
-        <ModalQuiz v-if="this.quiz == true" v-on:fecharModal="quiz = false"></ModalQuiz>
       </div>
     </div>
   </div>
 </template>
 <script>
-import ModalQuiz from './components/ModalQuiz.vue';
   export default{
     components:{
-      ModalQuiz,
     },
     data(){
       return{
-        quiz: false
+        quiz: false,
+        quizItens: [
+          {
+            title: "HTML"
+          },
+          {
+            title: "CSS"
+          },
+          {
+            title:"JavaScript"
+          }
+        ]
       }
     },
     methods:{
