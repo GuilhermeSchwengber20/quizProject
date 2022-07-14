@@ -14,41 +14,59 @@
       </div>
     </div>
     <div class="quiz-lista">
-      <div class="box-quiz">
-        <label>HTML 0/10</label>
-        &nbsp;
-        <label @click="abrirQuiz">Ir Para o Quiz<i class="fa-solid fa-arrow-right"></i></label>
-      </div>
-      <div class="box-quiz">
-        <label>CSS 0/10</label>
-        &nbsp;
-        <label>Ir Para o Quiz<i class="fa-solid fa-arrow-right"></i></label>
-      </div>
-      <div class="box-quiz">
-        <label>JavaScript 0/10</label>
-        &nbsp;
-        <button @click="abrirQuiz">r Para o Quiz<i class="fa-solid fa-arrow-right"></i></button>
-        <ModalQuiz v-if="this.quiz == true" v-on:fecharModal="quiz = false"></ModalQuiz>
+      <div class="box-quiz-html" v-for="(element, index) in quizBox" :key="index">
+        <div class="box-html-header">
+          <label>{{element.nome}}</label>
+          &nbsp;
+          <div class="progress-bar">
+            <label>0%</label>
+          </div>
+        </div>
+        <div class="quiz-level">
+          <label><span v-if="mostrarNivel == false">Visualizar</span><span v-else>Ocultar</span> Niveis do Quiz</label>
+          <i class="fa-solid fa-angle-down" @click="mostrarNivel(element)"></i>
+          <i class="fa-solid fa-angle-up" v-if="mostrarNivel == true" @click="mostrarNivel = false"></i>
+        </div>
+          <div class="selecionar-nivel" v-if="mostraNivel == true">
+            <label class="nivel-item">HTML Basic</label>
+            <label class="nivel-item">HTML Intermediario</label>
+            <label class="nivel-item">HTML Expert</label>
+          </div>
+        <!-- <label @click="abrirQuiz">Ir Para o Quiz<i class="fa-solid fa-arrow-right"></i></label> -->
       </div>
     </div>
   </div>
 </template>
 <script>
-import ModalQuiz from './components/ModalQuiz.vue';
+
   export default{
     components:{
-      ModalQuiz,
+  
     },
     data(){
       return{
-        quiz: false
+        quiz: false,
+        mostraNivel: false,
+        quizBox : [ 
+            {
+              nome: "HTML",
+            },
+            {
+              nome: "CSS",
+            }
+        ]
       }
     },
     methods:{
       abrirQuiz(){
         this.quiz = true;
         console.log("chamo funcao");
+      },
+      mostrarNivel(){
+        var teste = this.quizBox.findIndex("HTML");
+        console.log(teste);
       }
+      
     }
   }
 </script>
@@ -94,13 +112,47 @@ import ModalQuiz from './components/ModalQuiz.vue';
   justify-content: space-between;
 }
 
-.box-quiz{
+.box-quiz-html{
   display: flex;
   flex-direction: column;
   padding: 5px;
   align-items: center;
-  width: 240px;
+  width: 100%;
+  height: auto;
+  align-content: flex-end;
+  max-width: 300px;
   border-radius: 10px;
   box-shadow: 3px 3px 3px 3px rgba(0,0,0,0.5);
 }
+
+.box-html-header{
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  gap: 10px;
+}
+
+.quiz-level{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+}
+
+.selecionar-nivel{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.selecionar-nivel .nivel-item{
+  padding: 5px;
+  border: 1px solid #fff;
+  width: auto;
+  margin-top: 10px;
+}
+
+
 </style>
